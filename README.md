@@ -23,7 +23,6 @@ Built from the specs at `../docs/`. Copy is paste-ready, design tokens match the
 | GET | `/work` | `work.index` |
 | GET | `/work/{slug}` | `work.show` |
 | GET | `/about` | `about` |
-| GET | `/pricing` | `pricing` |
 | GET | `/journal` | `journal.index` |
 | GET | `/journal/{slug}` | `journal.show` |
 | GET | `/book` | `book` |

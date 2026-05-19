@@ -16,7 +16,6 @@
                 <a href="{{ route('book') }}" class="btn-primary">
                     Book strategy call <span aria-hidden="true">↗</span>
                 </a>
-                <a href="{{ route('pricing') }}" class="btn-ghost">See pricing</a>
             </div>
         </div>
     </div>

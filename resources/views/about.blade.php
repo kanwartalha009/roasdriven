@@ -54,19 +54,31 @@
         @include('partials.section-caption', ['caption' => '/ TEAM'])
         <h2 class="mt-4 text-display-m font-display font-bold leading-tight mb-12">Who's on the work.</h2>
 
+        {{-- Uniform team grid — every card identical, photos render once the
+             file lands in /public/team/, otherwise an initials placeholder. --}}
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            @foreach($about['team'] as $i => $member)
-                <div class="rounded-2xl border border-rule bg-surface p-6 card-hover">
-                    {{-- Placeholder photo block --}}
-                    <div aria-hidden="true" class="aspect-square rounded-xl bg-surface-2 mb-4 flex items-center justify-center">
-                        <span class="font-display font-black text-display-m text-mute/40">
-                            {{ strtoupper(substr($member['name'], 1, 1)) }}
-                        </span>
+            @foreach($about['team'] as $member)
+                @php
+                    $hasPhoto = !empty($member['photo'])
+                        && file_exists(public_path($member['photo']));
+                @endphp
+                <article class="rounded-2xl border border-rule bg-surface p-6 card-hover flex flex-col">
+                    <div class="aspect-square rounded-xl bg-surface-2 mb-5 flex items-center justify-center overflow-hidden ring-1 ring-rule">
+                        @if($hasPhoto)
+                            <img src="{{ asset($member['photo']) }}"
+                                 alt="{{ $member['name'] }}"
+                                 loading="lazy"
+                                 class="w-full h-full object-cover">
+                        @else
+                            <span aria-hidden="true" class="font-display font-black text-display-m text-mute/40">
+                                {{ strtoupper(substr($member['name'], 0, 1)) }}
+                            </span>
+                        @endif
                     </div>
-                    <h3 class="text-heading font-display font-bold">{{ $member['name'] }}</h3>
-                    <p class="mt-1 text-sm text-white/70">{{ $member['role'] }}</p>
-                    <p class="mt-2 font-mono text-xs text-mute">{{ $member['years'] }} years in DTC</p>
-                </div>
+                    <p class="font-mono text-caption uppercase tracking-wider text-mute">{{ $member['role'] }}</p>
+                    <h3 class="mt-2 text-heading font-display font-bold leading-tight">{{ $member['name'] }}</h3>
+                    <p class="mt-3 text-sm text-white/70 leading-relaxed">{{ $member['expertise'] }}</p>
+                </article>
             @endforeach
         </div>
     </div>

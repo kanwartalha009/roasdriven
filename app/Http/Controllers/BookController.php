@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brief;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -29,11 +30,21 @@ class BookController extends Controller
             'message'      => ['nullable', 'string', 'max:2000'],
         ]);
 
-        // Log + optionally send via Resend / Mail.
-        // For now, log to the configured channel and forward via mail() if configured.
-        $contactEmail = env('CONTACT_EMAIL', 'hello@roasdriven.io');
+        // 1. Persist to database (primary source of truth)
+        $brief = Brief::create(array_merge($data, [
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+        ]));
 
-        Log::info('book.brief.received', $data);
+        // 2. Mirror to the log channel for ops visibility
+        Log::info('book.brief.received', [
+            'id'    => $brief->id,
+            'brand' => $brief->brand,
+            'email' => $brief->email,
+        ]);
+
+        // 3. Notify by email (Resend / SMTP in prod; logs in dev)
+        $contactEmail = env('CONTACT_EMAIL', 'hello@roasdriven.io');
 
         try {
             Mail::raw($this->formatBrief($data), function ($message) use ($contactEmail, $data) {
@@ -42,8 +53,10 @@ class BookController extends Controller
                     ->replyTo($data['email'], $data['name']);
             });
         } catch (\Throwable $e) {
-            // Mail driver may be log in dev — that's fine; the log call above captures it.
-            Log::warning('book.brief.mail_failed', ['error' => $e->getMessage()]);
+            Log::warning('book.brief.mail_failed', [
+                'id'    => $brief->id,
+                'error' => $e->getMessage(),
+            ]);
         }
 
         return redirect()->route('book')->with('book.submitted', true);

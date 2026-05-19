@@ -9,12 +9,12 @@
         {{-- Logo --}}
         <a href="{{ route('home') }}"
            class="inline-flex items-center"
-           aria-label="ROAS/Driven home">
+           aria-label="ROAS Driven home">
             <img src="{{ asset('logo.svg') }}"
-                 alt="ROAS/Driven"
-                 width="160"
-                 height="42"
-                 class="h-7 md:h-8 w-auto select-none"
+                 alt="ROAS Driven"
+                 width="192"
+                 height="40"
+                 class="h-7 md:h-9 w-auto select-none"
                  draggable="false">
         </a>
 

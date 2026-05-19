@@ -29,7 +29,6 @@ return [
         ['label' => 'Services', 'route' => 'services.index'],
         ['label' => 'Work',     'route' => 'work.index'],
         ['label' => 'About',    'route' => 'about'],
-        ['label' => 'Pricing',  'route' => 'pricing'],
         ['label' => 'Journal',  'route' => 'journal.index'],
     ],
 
@@ -495,59 +494,6 @@ return [
     ],
 
     /* --------------------------------------------------------------------
-     | Pricing
-     * ----------------------------------------------------------------- */
-    'pricing' => [
-        [
-            'tier'        => 'Tier 1',
-            'name'        => 'The Audit',
-            'price'       => '$[X],XXX',
-            'cadence'     => 'fixed · two weeks',
-            'scope'       => 'Ad accounts, GA4, Shopify, Klaviyo, checkout, tech debt',
-            'deliverable' => 'Written audit + 90-day plan + 90-minute review call',
-            'leave_with'  => 'A plan you can execute with us or without us',
-            'cta'         => 'Book an audit',
-            'highlighted' => false,
-        ],
-        [
-            'tier'        => 'Tier 2',
-            'name'        => 'The Sprint',
-            'price'       => 'Starts at $[X]K',
-            'cadence'     => '12 weeks · fixed scope',
-            'scope'       => 'One discipline, one hard outcome',
-            'deliverable' => 'Live work, weekly Loom recap, written post-mortem at week 12',
-            'leave_with'  => 'A documented win-or-loss and the build live in your store',
-            'cta'         => 'See sprint scopes',
-            'highlighted' => true,
-        ],
-        [
-            'tier'        => 'Tier 3',
-            'name'        => 'The Partnership',
-            'price'       => 'Starts at $[X]K/mo',
-            'cadence'     => '90-day initial · monthly after',
-            'scope'       => 'Full-stack growth team — paid + CRO + lifecycle + dev under one P&L',
-            'deliverable' => 'Weekly Loom + monthly P&L call + quarterly roadmap + Looker dashboard',
-            'leave_with'  => 'Compounding numbers — or 30 days notice if not',
-            'cta'         => 'Book strategy call',
-            'highlighted' => false,
-        ],
-    ],
-
-    'pricing_excluded' => [
-        'Ad spend (you pay platforms directly).',
-        'Software (Klaviyo, Triple Whale, etc. — you own the accounts).',
-        'Influencer fees (paid separately, not marked up).',
-        'Hard-cost production (photo shoots, paid talent).',
-    ],
-
-    'pricing_faq' => [
-        ['q' => 'Do you mark up ad spend?',       'a' => 'No. You pay the platforms directly. We charge a flat retainer, regardless of spend level.'],
-        ['q' => 'Can we negotiate?',              'a' => "On scope, yes. On price, no. We don't discount — it's a fairness thing across clients."],
-        ['q' => "What happens if it isn't working?", 'a' => '30-day notice on the partnership tier. Audit and sprint tiers are fixed scope — you get the deliverable regardless of whether you continue.'],
-        ['q' => 'Do you take equity?',            'a' => 'No.'],
-    ],
-
-    /* --------------------------------------------------------------------
      | Homepage FAQ
      * ----------------------------------------------------------------- */
     'home_faq' => [
@@ -583,12 +529,48 @@ return [
             "Decks that don't map to a P&L.",
         ],
         'team' => [
-            ['name' => '[Founder Name]',     'role' => 'Founder · Head of Growth',         'years' => '[12]'],
-            ['name' => '[Operator Name 1]',  'role' => 'Senior Paid Media Operator',       'years' => '[9]'],
-            ['name' => '[Operator Name 2]',  'role' => 'Senior CRO Strategist',            'years' => '[8]'],
-            ['name' => '[Operator Name 3]',  'role' => 'Senior Lifecycle Operator',        'years' => '[7]'],
-            ['name' => '[Operator Name 4]',  'role' => 'Senior Shopify Engineer',          'years' => '[10]'],
-            ['name' => '[Operator Name 5]',  'role' => 'Creative Director',                'years' => '[8]'],
+            [
+                'name'      => 'Bosco',
+                'role'      => 'Founder · CEO',
+                'photo'     => 'team/bosco.png',
+                'expertise' => 'Founded ROAS Driven and owns the firm’s strategic direction and senior client relationships. Sets the bar for operator-led engagements over agency theatre, with full P&L responsibility across the partnership book.',
+            ],
+            [
+                'name'      => 'Lluis',
+                'role'      => 'CCO · Senior Growth Manager',
+                'photo'     => 'team/lluis.png',
+                'expertise' => 'Owns the commercial practice and acts as the most senior strategist on retainer accounts. Builds cross-channel architecture, attribution frameworks, and engagement scopes from first principles.',
+            ],
+            [
+                'name'      => 'Marina',
+                'role'      => 'Growth Manager · Paid Media Strategist',
+                'photo'     => 'team/marina.png',
+                'expertise' => 'Hybrid operator running growth strategy alongside hands-on paid media execution. Specializes in Meta and Google performance creative, daily buying cadence, and full-funnel attribution across mid-market DTC brands.',
+            ],
+            [
+                'name'      => 'Alejandra',
+                'role'      => 'Growth Manager',
+                'photo'     => 'team/alejandra.png',
+                'expertise' => 'Account lead for a portfolio of partnership clients. Owns the weekly Loom cadence, monthly P&L reviews, and cross-discipline coordination between paid, lifecycle, and CRO.',
+            ],
+            [
+                'name'      => 'Andrea',
+                'role'      => 'Paid Media Strategist',
+                'photo'     => 'team/andrea.png',
+                'expertise' => 'Performance media operator. Builds account architecture across Meta, Google, and TikTok; briefs creative against the previous month’s winners; makes daily buying decisions off real signal.',
+            ],
+            [
+                'name'      => 'Maria',
+                'role'      => 'Paid Media Strategist',
+                'photo'     => 'team/maria.png',
+                'expertise' => 'Performance media operator. Focused on creative scoring loops, CAPI and Enhanced Conversions integrity, and scaling spend without ROAS collapse on Meta and Google.',
+            ],
+            [
+                'name'      => 'Daniela',
+                'role'      => 'Paid Media Strategist',
+                'photo'     => 'team/daniela.png',
+                'expertise' => 'Performance media operator. Owns TikTok and emerging-channel performance, weekly creative iteration cycles, and granular reporting on hold-rate, win-rate, and contribution margin.',
+            ],
         ],
     ],
 

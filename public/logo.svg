@@ -1,12 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 96" role="img" aria-label="ROAS/Driven">
-  <title>ROAS/Driven</title>
-  <text x="135" y="64" text-anchor="end"
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 100" role="img" aria-label="ROAS Driven">
+  <title>ROAS Driven</title>
+  <text x="240" y="62" text-anchor="middle"
         font-family="'General Sans', 'Helvetica Neue', 'Arial Black', Helvetica, Arial, sans-serif"
-        font-weight="900" font-size="56" letter-spacing="-1.5"
-        fill="#FFFFFF">ROAS</text>
-  <polygon points="141,76 153,76 178,15 166,15" fill="#3B82F6"/>
-  <text x="184" y="64" text-anchor="start"
-        font-family="'General Sans', 'Helvetica Neue', 'Arial Black', Helvetica, Arial, sans-serif"
-        font-weight="900" font-size="56" letter-spacing="-1.5"
-        fill="#FFFFFF">Driven</text>
+        font-weight="900" font-size="56" letter-spacing="-2.5"
+        fill="#FFFFFF">ROAS DRIVEN</text>
+  <line x1="195" y1="80" x2="285" y2="80" stroke="#3B82F6" stroke-width="2.2"/>
 </svg>
