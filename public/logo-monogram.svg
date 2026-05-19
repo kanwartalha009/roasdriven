@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="R/">
+  <title>ROAS/Driven monogram</title>
+  <rect width="128" height="128" rx="20" fill="#0A1430"/>
+  <text x="62" y="92" text-anchor="end"
+        font-family="'General Sans', 'Helvetica Neue', 'Arial Black', Helvetica, Arial, sans-serif"
+        font-weight="900" font-size="84" letter-spacing="-2"
+        fill="#FFFFFF">R</text>
+  <polygon points="66,108 82,108 116,20 100,20" fill="#3B82F6"/>
+</svg>

@@ -1,0 +1,235 @@
+@import url('https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+ * Design Tokens
+ *
+ * Colors are stored as space-separated RGB triplets so that Tailwind's
+ * `<alpha-value>` substitution works — that's what lets us write
+ * `bg-ink/95`, `text-mute/70`, `ring-lift/30`, etc.
+ * ------------------------------------------------------------------------ */
+:root {
+    /* Blue + white only — every accent collapses to a blue tone or white,
+       so the page never carries more than two true hues at once. */
+    --ink:        10 20 48;      /* #0A1430 — deep midnight navy */
+    --surface:    19 29 64;      /* #131D40 — card surface */
+    --surface-2:  26 38 84;      /* #1A2654 — elevated card */
+    --lift:       59 130 246;    /* #3B82F6 — royal blue, primary accent (slash + CTAs) */
+    --pop:        96 165 250;    /* #60A5FA — sky blue, secondary accent (metric pop) */
+    --heat:       255 255 255;   /* #FFFFFF — white, used where a third highlight is needed */
+    --paper:      255 255 255;   /* #FFFFFF — editorial break section */
+    --mute:       148 163 184;   /* #94A3B8 — slate captions */
+    --rule:       30 41 89;      /* #1E2959 — navy divider */
+}
+
+/* ---------------------------------------------------------------------------
+ * Base
+ * ------------------------------------------------------------------------ */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: rgb(var(--ink));
+    color: rgb(255 255 255 / 0.92);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+    background: rgb(var(--lift));
+    color: rgb(var(--ink));
+}
+
+/* The browser's user-agent rule `[hidden] { display: none }` loses to
+   any Tailwind display utility (`.flex`, `.grid`, `.block`, etc.) because
+   they share specificity and author CSS wins. Force it so JS `hidden`
+   toggles actually hide elements — needed by the /work filter chips. */
+[hidden] {
+    display: none !important;
+}
+
+/* ---------------------------------------------------------------------------
+ * Component utilities
+ * ------------------------------------------------------------------------ */
+@layer components {
+    .container-site {
+        @apply mx-auto w-full max-w-container px-6 md:px-8 lg:px-12;
+    }
+
+    .section {
+        @apply py-14 md:py-20 lg:py-28;
+    }
+
+    /* Pill primary button */
+    .btn-primary {
+        @apply inline-flex items-center gap-2 rounded-full bg-lift px-6 py-3 text-sm font-semibold text-ink transition-all duration-site ease-site hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift focus-visible:ring-offset-2 focus-visible:ring-offset-ink min-h-[44px] md:min-h-[56px];
+    }
+
+    /* Ghost / secondary */
+    .btn-ghost {
+        @apply inline-flex items-center gap-2 rounded-full border border-rule px-6 py-3 text-sm font-semibold text-white transition-all duration-site ease-site hover:border-white/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift focus-visible:ring-offset-2 focus-visible:ring-offset-ink min-h-[44px] md:min-h-[56px];
+    }
+
+    /* Section eyebrow / caption */
+    .eyebrow {
+        @apply font-mono text-caption uppercase tracking-wider text-mute;
+    }
+
+    .eyebrow .slash {
+        @apply text-lift mr-1;
+    }
+
+    /* Card lift on hover */
+    .card-hover {
+        @apply transition-transform duration-site ease-site hover:-translate-y-2 hover:border-lift;
+    }
+
+    /* Decorative grid background overlay */
+    .grid-bg {
+        background-image:
+            linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        background-size: 56px 56px;
+    }
+
+    /* Blue glow blobs behind hero sections. Two large soft radials in
+       royal blue + sky blue create depth without bringing in a third hue. */
+    .glow-bg {
+        background-image:
+            radial-gradient(ellipse 60% 40% at 12% 60%,  rgba(59, 130, 246, 0.28) 0%, transparent 65%),
+            radial-gradient(ellipse 55% 45% at 92% 12%,  rgba(96, 165, 250, 0.22) 0%, transparent 65%);
+    }
+
+    /* ------------------------------------------------------------------
+     | Marquee — infinite-scroll logo carousel
+     |
+     | Two tracks side by side, each rendering the full list, so when the
+     | first slides off the left the second sits flush behind it. The
+     | translate ends at exactly -100% of one track's width, which is
+     | seamless because the second track is identical.
+     * --------------------------------------------------------------- */
+    .marquee {
+        display: flex;
+        width: 100%;
+        overflow: hidden;
+        -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+                mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    }
+
+    .marquee-track {
+        flex-shrink: 0;
+        display: flex;
+        gap: 4rem;
+        padding-right: 4rem;
+        align-items: center;
+        animation: marquee-scroll var(--marquee-duration, 60s) linear infinite;
+        will-change: transform;
+    }
+
+    .marquee-item {
+        flex-shrink: 0;
+        font-size: 1.75rem;          /* 28px on desktop */
+        line-height: 1;
+        letter-spacing: -0.01em;
+        position: relative;
+    }
+
+    @media (min-width: 768px) {
+        .marquee-item {
+            font-size: 2rem;          /* 32px on md+ */
+        }
+    }
+
+    .marquee-item + .marquee-item::before {
+        content: "·";
+        position: absolute;
+        left: -2.3rem;
+        font-size: 1.5rem;
+        color: rgb(var(--mute) / 0.4);
+    }
+
+    /* Pause on hover so users can click a brand */
+    .marquee:hover .marquee-track,
+    .marquee:focus-within .marquee-track {
+        animation-play-state: paused;
+    }
+
+    @keyframes marquee-scroll {
+        from { transform: translateX(0); }
+        to   { transform: translateX(-100%); }
+    }
+
+    /* Filter chips (used on /work roster) */
+    .filter-chip {
+        @apply inline-flex items-center rounded-full border border-rule px-4 py-1.5 text-xs font-mono uppercase tracking-wider text-white/80 transition-colors hover:border-lift focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lift focus-visible:ring-offset-2 focus-visible:ring-offset-ink;
+    }
+
+    .filter-chip.is-active {
+        @apply bg-lift text-ink border-lift;
+    }
+
+    /* Inputs */
+    .input {
+        @apply w-full rounded-2xl border border-rule bg-surface px-4 py-3 text-white placeholder:text-mute/70 focus:border-lift focus:outline-none focus:ring-2 focus:ring-lift/30;
+        color-scheme: dark;
+    }
+
+    .label {
+        @apply mb-2 block text-sm font-medium text-white;
+    }
+}
+
+/* ---------------------------------------------------------------------------
+ * Reduced motion
+ * ------------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .grid-bg {
+        background-image: none;
+    }
+
+    /* Marquee: kill the animation entirely so the first track sits visible
+       and the user can horizontally scroll if they want to see more. */
+    .marquee {
+        overflow-x: auto;
+    }
+    .marquee-track {
+        animation: none !important;
+        transform: none !important;
+    }
+}
+
+/* ---------------------------------------------------------------------------
+ * Skip-to-content
+ * ------------------------------------------------------------------------ */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: rgb(var(--lift));
+    color: rgb(var(--ink));
+    padding: 8px 16px;
+    z-index: 100;
+    font-weight: 600;
+    transition: top 0.2s;
+}
+
+.skip-link:focus {
+    top: 0;
+}
