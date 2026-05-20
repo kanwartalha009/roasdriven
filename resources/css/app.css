@@ -57,6 +57,32 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
+ * Hide brand displays (temporary — pending client consent / NDA clearance)
+ *
+ * - Homepage: hides the scrolling brand logo marquee section
+ * - /work:    hides the full retainer roster (82-brand grid + filter chips)
+ *
+ * Case-study cards (Ölend / Flabelus / Banoffee BCN) stay visible since
+ * those are about outcomes, not brand listing. To hide those too, see the
+ * second rule below — uncomment it.
+ * ------------------------------------------------------------------------ */
+section:has(> .marquee) {
+    display: none !important;
+}
+
+[data-roster] {
+    display: none !important;
+}
+
+/* Uncomment to also hide the three featured case-study cards
+   (the named Ölend / Flabelus / Banoffee blocks):
+
+section:has(> .container-site > .grid [data-case-card]) {
+    display: none !important;
+}
+*/
+
+/* ---------------------------------------------------------------------------
  * Component utilities
  * ------------------------------------------------------------------------ */
 @layer components {
