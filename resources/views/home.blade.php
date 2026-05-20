@@ -68,9 +68,6 @@
     </div>
 </section>
 
-{{-- ========== 5.3 LOGO BAR (infinite-scroll marquee, full client roster) ========== --}}
-@include('partials.logo-bar', ['logos' => $allClients, 'carousel' => true])
-
 {{-- ========== 5.4 SIX DISCIPLINES ========== --}}
 <section class="section">
     <div class="container-site">
